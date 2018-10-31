@@ -9,12 +9,16 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
 
-  override func viewDidLoad() {
+    override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+    let currentDate = Date();
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "HH:mm"
+    let timeString = dateFormatter.string(from: currentDate)
+    timeLabel.text = timeString
   }
-
-
 }
 
