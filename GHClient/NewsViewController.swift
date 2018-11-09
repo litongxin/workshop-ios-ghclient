@@ -8,18 +8,25 @@
 
 import UIKit
 
+let url = "https://api.github.com/users/emagrorrim/received_events"
+
 class NewsViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   
   private let events: [Event] = FakeDataProvider().providerData()
   
   private let reuseIdentifier = "NewsTableViewCell"
+  private let networkClient: NetworkClient = AlamofireNetworkClient()
 
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.delegate = self
     tableView.dataSource = self
     tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+    let header = RequestHeaderBuilder().configure(username: "").configure(password: "").build()
+    networkClient.get(url: URL(string: url)!, header: header) { json, error in
+        print(json)
+    }
   }
 }
 
